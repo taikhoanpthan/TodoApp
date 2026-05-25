@@ -45,7 +45,7 @@ export default function Header({
             </h1>
 
             <p className="text-sm opacity-90 mt-1">
-              Yakiuo Ishikawa
+              Yakiuo - Service
             </p>
           </div>
         </div>
