@@ -138,7 +138,7 @@ export default function Intro({
               }}
               className="mt-8 text-xs tracking-[4px] text-gray-500 uppercase"
             >
-              Preparing Workspace
+              Yakiuo Ishikawa
             </motion.p>
           </div>
         </motion.div>
