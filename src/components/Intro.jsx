@@ -138,7 +138,7 @@ export default function Intro({
               }}
               className="mt-8 text-xs tracking-[4px] text-gray-500 uppercase"
             >
-              Yakiuo Ishikawa
+              Yakiuo Ishikawa Saigon
             </motion.p>
           </div>
         </motion.div>
