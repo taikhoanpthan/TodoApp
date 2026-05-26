@@ -73,7 +73,7 @@ export default function Header({
       </div>
 
       {/* STATS */}
-
+{/* 
       <div className="relative z-10 mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 flex items-center gap-4 shadow-lg">
           <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
@@ -90,7 +90,7 @@ export default function Header({
             </h2>
           </div>
         </div>
-      </div>
+      </div> */}
     </motion.div>
   );
 }
