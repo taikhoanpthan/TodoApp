@@ -21,6 +21,9 @@ export default function Header({
         opacity: 1,
         y: 0,
       }}
+      transition={{
+        duration: 0.5,
+      }}
       className="relative overflow-hidden bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 text-white px-5 pt-8 pb-8 rounded-b-[40px] shadow-2xl"
     >
       {/* BACKGROUND DECOR */}
@@ -45,7 +48,7 @@ export default function Header({
             </h1>
 
             <p className="text-sm opacity-90 mt-1">
-              Yakiuo - Service team
+              Yakiuo - Service Team
             </p>
           </div>
         </div>
@@ -71,7 +74,23 @@ export default function Header({
 
       {/* STATS */}
 
-      
+      <div className="relative z-10 mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 flex items-center gap-4 shadow-lg">
+          <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
+            <FaTasks size={22} />
+          </div>
+
+          <div>
+            <p className="text-sm opacity-80">
+              Tổng công việc
+            </p>
+
+            <h2 className="text-2xl font-bold">
+              {totalTasks}
+            </h2>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 }
