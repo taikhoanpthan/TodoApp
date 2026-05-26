@@ -8,11 +8,17 @@ import {
 } from "react-icons/fa";
 
 import { motion } from "framer-motion";
-
 import Swal from "sweetalert2";
 
-export default function TaskCard({ task, onDelete, onToggle, onEdit }) {
+export default function TaskCard({
+  task,
+  onDelete,
+  onToggle,
+  onEdit,
+}) {
+  // =========================
   // VIEW DETAIL
+  // =========================
 
   const handleViewDetail = () => {
     Swal.fire({
@@ -22,231 +28,274 @@ export default function TaskCard({ task, onDelete, onToggle, onEdit }) {
 
       background: "transparent",
 
-      padding: 0,
+      padding: 12,
+
+      scrollbarPadding: false,
 
       html: `
-      <div style="
-        position:relative;
-        overflow:hidden;
-        border-radius:32px;
-        background:white;
-        box-shadow:0 25px 60px rgba(0,0,0,0.15);
-        text-align:left;
-      ">
-
-        <!-- BACKGROUND -->
-
-        <div style="
-          position:absolute;
-          top:-80px;
-          right:-80px;
-          width:220px;
-          height:220px;
-          background:#dbeafe;
-          border-radius:999px;
-          opacity:.5;
-        "></div>
-
-        <!-- HEADER -->
-
         <div style="
           position:relative;
-          z-index:2;
-          padding:28px;
-          border-bottom:1px solid #f3f4f6;
+          overflow:hidden;
+          border-radius:32px;
+          background:white;
+          box-shadow:0 25px 60px rgba(0,0,0,0.15);
+          text-align:left;
+
+          width:100%;
+          max-height:85vh;
+
+          display:flex;
+          flex-direction:column;
         ">
 
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            align-items:flex-start;
-            gap:16px;
-          ">
-
-            <div>
-
-              <div style="
-                font-size:28px;
-                font-weight:800;
-                color:#111827;
-                line-height:1.3;
-              ">
-                📋 Công việc
-              </div>
-
-              <div style="
-                margin-top:8px;
-                color:#9ca3af;
-                font-size:14px;
-                font-weight:500;
-              ">
-                ${task.completed ? "Đã hoàn thành" : "Đang thực hiện"}
-              </div>
-
-            </div>
-
-            <div style="
-              background:${task.completed ? "#22c55e" : "#fb923c"};
-              color:white;
-              padding:10px 16px;
-              border-radius:999px;
-              font-size:13px;
-              font-weight:700;
-              white-space:nowrap;
-            ">
-              ${task.completed ? "Hoàn thành" : "Đang làm"}
-            </div>
-
-          </div>
-        </div>
-
-        <!-- BODY -->
-
-        <div style="
-          position:relative;
-          z-index:2;
-          padding:28px;
-        ">
-
-          <!-- INFO -->
+          <!-- BG -->
 
           <div style="
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:14px;
-            margin-bottom:22px;
-          ">
+            position:absolute;
+            top:-80px;
+            right:-80px;
+            width:220px;
+            height:220px;
+            background:#dbeafe;
+            border-radius:999px;
+            opacity:.5;
+          "></div>
 
-            <!-- USER -->
-
-            <div style="
-              background:#f8fafc;
-              border:1px solid #e5e7eb;
-              border-radius:22px;
-              padding:18px;
-            ">
-
-              <div style="
-                font-size:11px;
-                color:#94a3b8;
-                margin-bottom:12px;
-                font-weight:700;
-                letter-spacing:1px;
-                text-transform:uppercase;
-                white-space:nowrap;
-              ">
-                Người tạo
-              </div>
-
-              <div style="
-                font-size:18px;
-                color:#111827;
-                font-weight:700;
-                line-height:1.7;
-                word-break:break-word;
-              ">
-                ${task.creator}
-              </div>
-
-            </div>
-
-            <!-- DATE -->
-
-            <div style="
-              background:#f8fafc;
-              border:1px solid #e5e7eb;
-              border-radius:22px;
-              padding:18px;
-            ">
-
-              <div style="
-                font-size:11px;
-                color:#94a3b8;
-                margin-bottom:12px;
-                font-weight:700;
-                letter-spacing:1px;
-                text-transform:uppercase;
-                white-space:nowrap;
-              ">
-                Ngày tạo
-              </div>
-
-              <div style="
-                font-size:15px;
-                color:#111827;
-                font-weight:600;
-                line-height:1.8;
-                word-break:break-word;
-              ">
-                ${new Date(task.createdAt).toLocaleString("vi-VN")}
-              </div>
-
-            </div>
-
-          </div>
-
-          <!-- TASK -->
+          <!-- HEADER -->
 
           <div style="
+            position:relative;
+            z-index:2;
+            padding:28px;
+            border-bottom:1px solid #f3f4f6;
+            flex-shrink:0;
             background:white;
-            border:1px solid #e5e7eb;
-            border-radius:24px;
-            padding:22px;
-            box-shadow:0 10px 30px rgba(0,0,0,.04);
           ">
 
             <div style="
-              font-size:11px;
-              color:#94a3b8;
-              margin-bottom:14px;
-              font-weight:700;
-              letter-spacing:1px;
-              text-transform:uppercase;
+              display:flex;
+              justify-content:space-between;
+              align-items:flex-start;
+              gap:16px;
             ">
-              Nội dung công việc
-            </div>
 
-            <div style="
-              font-size:16px;
-              color:#1f2937;
-              line-height:2;
-              white-space:pre-line;
-              word-break:break-word;
-              text-align:left;
-            ">
-              ${task.task}
+              <div>
+
+                <div style="
+                  font-size:28px;
+                  font-weight:800;
+                  color:#111827;
+                  line-height:1.3;
+                ">
+                  📋 Công việc
+                </div>
+
+                <div style="
+                  margin-top:8px;
+                  color:#9ca3af;
+                  font-size:14px;
+                  font-weight:500;
+                ">
+                  ${
+                    task.completed
+                      ? "Đã hoàn thành"
+                      : "Đang thực hiện"
+                  }
+                </div>
+
+              </div>
+
+              <div style="
+                background:${
+                  task.completed ? "#22c55e" : "#fb923c"
+                };
+                color:white;
+                padding:10px 16px;
+                border-radius:999px;
+                font-size:13px;
+                font-weight:700;
+                white-space:nowrap;
+              ">
+                ${
+                  task.completed
+                    ? "Hoàn thành"
+                    : "Đang làm"
+                }
+              </div>
+
             </div>
 
           </div>
 
-          <!-- BUTTON -->
+          <!-- BODY -->
 
-          <button
-            id="closeTaskDetail"
-            style="
-              width:100%;
-              margin-top:24px;
-              border:none;
-              padding:16px;
-              border-radius:22px;
-              background:linear-gradient(
-                135deg,
-                #3b82f6,
-                #6366f1
-              );
-              color:white;
-              font-size:16px;
-              font-weight:700;
-              cursor:pointer;
-            "
-          >
-            Đóng
-          </button>
+          <div style="
+            position:relative;
+            z-index:2;
+            padding:28px;
+            overflow-y:auto;
+            flex:1;
+          ">
+
+            <!-- INFO -->
+
+            <div style="
+              display:grid;
+              grid-template-columns:1fr 1fr;
+              gap:14px;
+              margin-bottom:22px;
+            ">
+
+              <!-- USER -->
+
+              <div style="
+                background:#f8fafc;
+                border:1px solid #e5e7eb;
+                border-radius:22px;
+                padding:18px;
+              ">
+
+                <div style="
+                  font-size:11px;
+                  color:#94a3b8;
+                  margin-bottom:12px;
+                  font-weight:700;
+                  letter-spacing:1px;
+                  text-transform:uppercase;
+                ">
+                  Người tạo
+                </div>
+
+                <div style="
+                  font-size:18px;
+                  color:#111827;
+                  font-weight:700;
+                  line-height:1.7;
+                  word-break:break-word;
+                ">
+                  ${task.creator}
+                </div>
+
+              </div>
+
+              <!-- DATE -->
+
+              <div style="
+                background:#f8fafc;
+                border:1px solid #e5e7eb;
+                border-radius:22px;
+                padding:18px;
+              ">
+
+                <div style="
+                  font-size:11px;
+                  color:#94a3b8;
+                  margin-bottom:12px;
+                  font-weight:700;
+                  letter-spacing:1px;
+                  text-transform:uppercase;
+                ">
+                  Ngày tạo
+                </div>
+
+                <div style="
+                  font-size:15px;
+                  color:#111827;
+                  font-weight:600;
+                  line-height:1.8;
+                  word-break:break-word;
+                ">
+                  ${new Date(
+                    task.createdAt
+                  ).toLocaleString("vi-VN")}
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- TASK -->
+
+            <div style="
+              background:white;
+              border:1px solid #e5e7eb;
+              border-radius:24px;
+              padding:22px;
+              box-shadow:0 10px 30px rgba(0,0,0,.04);
+            ">
+
+              <div style="
+                font-size:11px;
+                color:#94a3b8;
+                margin-bottom:14px;
+                font-weight:700;
+                letter-spacing:1px;
+                text-transform:uppercase;
+              ">
+                Nội dung công việc
+              </div>
+
+              <textarea
+                readonly
+                style="
+                  width:100%;
+                  min-height:220px;
+                  border:none;
+                  outline:none;
+                  resize:none;
+                  border-radius:20px;
+                  background:#f8fafc;
+                  border:1px solid #e5e7eb;
+                  padding:18px;
+                  font-size:16px;
+                  line-height:1.7;
+                  color:#111827;
+                  box-sizing:border-box;
+                  font-family:inherit;
+                  overflow-y:auto;
+                "
+              >${task.task}</textarea>
+
+            </div>
+
+          </div>
+
+          <!-- FOOTER -->
+
+          <div style="
+            position:relative;
+            z-index:2;
+            padding:24px 28px 28px;
+            background:white;
+            border-top:1px solid #f3f4f6;
+            flex-shrink:0;
+          ">
+
+            <button
+              id="closeTaskDetail"
+              style="
+                width:100%;
+                border:none;
+                padding:16px;
+                border-radius:22px;
+                background:linear-gradient(
+                  135deg,
+                  #3b82f6,
+                  #6366f1
+                );
+                color:white;
+                font-size:16px;
+                font-weight:700;
+                cursor:pointer;
+              "
+            >
+              Đóng
+            </button>
+
+          </div>
 
         </div>
-
-      </div>
-    `,
+      `,
 
       didOpen: () => {
         document
@@ -258,233 +307,267 @@ export default function TaskCard({ task, onDelete, onToggle, onEdit }) {
     });
   };
 
+  // =========================
   // EDIT TASK
+  // =========================
 
   const handleEditTask = async () => {
     const result = await Swal.fire({
       width: 560,
 
-      showCancelButton: true,
-
-      confirmButtonText: "Lưu thay đổi",
-
-      cancelButtonText: "Hủy",
-
-      confirmButtonColor: "#3b82f6",
-
-      cancelButtonColor: "#9ca3af",
+      showConfirmButton: false,
 
       background: "transparent",
 
-      padding: 0,
+      padding: 12,
 
-      buttonsStyling: false,
+      scrollbarPadding: false,
 
       html: `
+        <div style="
+          position:relative;
+          overflow:hidden;
+          border-radius:32px;
+          background:white;
+          text-align:left;
+          box-shadow:0 25px 60px rgba(0,0,0,.15);
+
+          width:100%;
+          max-height:85vh;
+
+          display:flex;
+          flex-direction:column;
+        ">
+
+          <!-- BG -->
+
+          <div style="
+            position:absolute;
+            top:-80px;
+            right:-80px;
+            width:220px;
+            height:220px;
+            background:#dbeafe;
+            border-radius:999px;
+            opacity:.5;
+          "></div>
+
+          <!-- HEADER -->
+
           <div style="
             position:relative;
-            overflow:hidden;
-            border-radius:32px;
+            z-index:2;
+            padding:28px;
+            border-bottom:1px solid #f3f4f6;
+            flex-shrink:0;
             background:white;
-            text-align:left;
-            box-shadow:0 25px 60px rgba(0,0,0,.15);
           ">
 
-            <!-- BG -->
+            <div style="
+              font-size:28px;
+              font-weight:800;
+              color:#111827;
+            ">
+              ✏️ Chỉnh sửa
+            </div>
 
             <div style="
-              position:absolute;
-              top:-80px;
-              right:-80px;
-              width:220px;
-              height:220px;
-              background:#dbeafe;
-              border-radius:999px;
-              opacity:.5;
-            "></div>
+              margin-top:8px;
+              color:#94a3b8;
+              font-size:14px;
+              line-height:1.7;
+            ">
+              Cập nhật lại nội dung công việc
+            </div>
 
-            <!-- HEADER -->
+          </div>
+
+          <!-- BODY -->
+
+          <div style="
+            position:relative;
+            z-index:2;
+            padding:28px;
+            overflow-y:auto;
+            flex:1;
+          ">
+
+            <!-- CREATOR -->
 
             <div style="
-              position:relative;
-              z-index:2;
-              padding:28px;
-              border-bottom:1px solid #f3f4f6;
+              margin-bottom:18px;
             ">
 
               <div style="
-                font-size:28px;
-                font-weight:800;
-                color:#111827;
+                font-size:11px;
+                color:#94a3b8;
+                margin-bottom:10px;
+                font-weight:700;
+                letter-spacing:1px;
+                text-transform:uppercase;
               ">
-                ✏️ Chỉnh sửa
+                Người tạo
               </div>
 
-              <div style="
-                margin-top:8px;
-                color:#94a3b8;
-                font-size:14px;
-                line-height:1.7;
-              ">
-                Cập nhật lại nội dung công việc
-              </div>
+              <input
+                id="creator"
+                value="${task.creator}"
+                placeholder="Nhập tên người tạo..."
+                style="
+                  width:100%;
+                  height:58px;
+                  border:none;
+                  outline:none;
+                  border-radius:20px;
+                  background:#f8fafc;
+                  border:1px solid #e5e7eb;
+                  padding:0 18px;
+                  font-size:16px;
+                  color:#111827;
+                  box-sizing:border-box;
+                "
+              />
 
             </div>
 
-            <!-- BODY -->
+            <!-- TASK -->
 
-            <div style="
-              position:relative;
-              z-index:2;
-              padding:28px;
-            ">
-
-              <!-- CREATOR -->
+            <div>
 
               <div style="
-                margin-bottom:18px;
+                font-size:11px;
+                color:#94a3b8;
+                margin-bottom:10px;
+                font-weight:700;
+                letter-spacing:1px;
+                text-transform:uppercase;
               ">
-
-                <div style="
-                  font-size:11px;
-                  color:#94a3b8;
-                  margin-bottom:10px;
-                  font-weight:700;
-                  letter-spacing:1px;
-                  text-transform:uppercase;
-                ">
-                  Người tạo
-                </div>
-
-                <input
-                  id="creator"
-                  value="${task.creator}"
-                  placeholder="Nhập tên người tạo..."
-                  style="
-                    width:100%;
-                    height:58px;
-                    border:none;
-                    outline:none;
-                    border-radius:20px;
-                    background:#f8fafc;
-                    border:1px solid #e5e7eb;
-                    padding:0 18px;
-                    font-size:16px;
-                    color:#111827;
-                    box-sizing:border-box;
-                  "
-                />
-
+                Nội dung công việc
               </div>
 
-              <!-- TASK -->
-
-              <div>
-
-                <div style="
-                  font-size:11px;
-                  color:#94a3b8;
-                  margin-bottom:10px;
-                  font-weight:700;
-                  letter-spacing:1px;
-                  text-transform:uppercase;
-                ">
-                  Nội dung công việc
-                </div>
-
-                <textarea
-                  id="task"
-                  placeholder="Nhập nội dung..."
-                  style="
-                    width:100%;
-                    min-height:180px;
-                    border:none;
-                    outline:none;
-                    resize:none;
-                    border-radius:24px;
-                    background:#f8fafc;
-                    border:1px solid #e5e7eb;
-                    padding:18px;
-                    font-size:16px;
-                    line-height:1.9;
-                    color:#111827;
-                    box-sizing:border-box;
-                    font-family:inherit;
-                  "
-                >${task.task}</textarea>
-
-              </div>
-
-              <!-- BUTTONS -->
-
-              <div style="
-                display:grid;
-                grid-template-columns:1fr 1fr;
-                gap:12px;
-                margin-top:24px;
-              ">
-
-                <button
-                  id="cancelEdit"
-                  style="
-                    height:56px;
-                    border:none;
-                    border-radius:20px;
-                    background:#f3f4f6;
-                    color:#374151;
-                    font-size:15px;
-                    font-weight:700;
-                    cursor:pointer;
-                  "
-                >
-                  Hủy
-                </button>
-
-                <button
-                  id="submitEdit"
-                  style="
-                    height:56px;
-                    border:none;
-                    border-radius:20px;
-                    background:linear-gradient(
-                      135deg,
-                      #3b82f6,
-                      #6366f1
-                    );
-                    color:white;
-                    font-size:15px;
-                    font-weight:700;
-                    cursor:pointer;
-                    box-shadow:0 12px 30px rgba(59,130,246,.25);
-                  "
-                >
-                  Lưu thay đổi
-                </button>
-
-              </div>
+              <textarea
+                id="task"
+                placeholder="Nhập nội dung..."
+                style="
+                  width:100%;
+                  min-height:220px;
+                  max-height:400px;
+                  border:none;
+                  outline:none;
+                  resize:vertical;
+                  border-radius:24px;
+                  background:#f8fafc;
+                  border:1px solid #e5e7eb;
+                  padding:18px;
+                  font-size:16px;
+                  line-height:1.7;
+                  color:#111827;
+                  box-sizing:border-box;
+                  font-family:inherit;
+                  overflow-y:auto;
+                "
+              ></textarea>
 
             </div>
 
           </div>
-        `,
+
+          <!-- FOOTER -->
+
+          <div style="
+            position:relative;
+            z-index:2;
+            padding:24px 28px 28px;
+            background:white;
+            border-top:1px solid #f3f4f6;
+            flex-shrink:0;
+          ">
+
+            <div style="
+              display:grid;
+              grid-template-columns:1fr 1fr;
+              gap:12px;
+            ">
+
+              <button
+                id="cancelEdit"
+                style="
+                  height:56px;
+                  border:none;
+                  border-radius:20px;
+                  background:#f3f4f6;
+                  color:#374151;
+                  font-size:15px;
+                  font-weight:700;
+                  cursor:pointer;
+                "
+              >
+                Hủy
+              </button>
+
+              <button
+                id="submitEdit"
+                style="
+                  height:56px;
+                  border:none;
+                  border-radius:20px;
+                  background:linear-gradient(
+                    135deg,
+                    #3b82f6,
+                    #6366f1
+                  );
+                  color:white;
+                  font-size:15px;
+                  font-weight:700;
+                  cursor:pointer;
+                  box-shadow:0 12px 30px rgba(59,130,246,.25);
+                "
+              >
+                Lưu thay đổi
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+      `,
 
       didOpen: () => {
-        document.getElementById("cancelEdit")?.addEventListener("click", () => {
-          Swal.close();
-        });
+        const textarea =
+          document.getElementById("task");
 
-        document.getElementById("submitEdit")?.addEventListener("click", () => {
-          Swal.clickConfirm();
-        });
+        if (textarea) {
+          textarea.value = task.task || "";
+        }
+
+        document
+          .getElementById("cancelEdit")
+          ?.addEventListener("click", () => {
+            Swal.close();
+          });
+
+        document
+          .getElementById("submitEdit")
+          ?.addEventListener("click", () => {
+            Swal.clickConfirm();
+          });
       },
 
       preConfirm: () => {
-        const creator = document.getElementById("creator").value;
+        const creator =
+          document.getElementById("creator").value;
 
-        const taskText = document.getElementById("task").value;
+        const taskText =
+          document.getElementById("task").value;
 
-        if (!creator.trim() || !taskText.trim()) {
-          Swal.showValidationMessage("Vui lòng nhập đầy đủ thông tin");
+        if (
+          !creator.trim() ||
+          !taskText.trim()
+        ) {
+          Swal.showValidationMessage(
+            "Vui lòng nhập đầy đủ thông tin"
+          );
 
           return false;
         }
@@ -551,31 +634,25 @@ export default function TaskCard({ task, onDelete, onToggle, onEdit }) {
       {/* CONTENT */}
 
       <div className="relative z-10">
-        {/* USER */}
-
         <div className="flex items-center gap-2 text-sm text-gray-500">
           <FaUser className="text-blue-500" />
 
-          <span className="font-semibold">{task.creator}</span>
+          <span className="font-semibold">
+            {task.creator}
+          </span>
         </div>
-
-        {/* DATE */}
 
         <div className="flex items-center gap-2 text-sm text-gray-500 mt-2">
           <FaClock className="text-orange-400" />
 
           <span>
             {task.createdAt
-              ? new Date(task.createdAt).toLocaleDateString("vi-VN")
+              ? new Date(
+                  task.createdAt
+                ).toLocaleDateString("vi-VN")
               : "Không có ngày"}
           </span>
         </div>
-
-        {/* SHORT PREVIEW */}
-
-        {/* <div className="mt-4 text-gray-700 font-semibold text-lg line-clamp-1">
-          {task.task}
-        </div> */}
       </div>
 
       {/* ACTIONS */}
@@ -604,7 +681,9 @@ export default function TaskCard({ task, onDelete, onToggle, onEdit }) {
         <button
           onClick={() => onToggle(task)}
           className={`py-3 rounded-2xl text-white flex items-center justify-center transition-all active:scale-95 shadow-md ${
-            task.completed ? "bg-gray-400" : "bg-green-500 hover:bg-green-600"
+            task.completed
+              ? "bg-gray-400"
+              : "bg-green-500 hover:bg-green-600"
           }`}
         >
           <FaCheckCircle />
