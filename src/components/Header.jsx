@@ -1,7 +1,7 @@
 import {
   FaClipboardList,
   FaCalendarAlt,
-  FaTasks,
+  FaSyncAlt,
 } from "react-icons/fa";
 
 import { motion } from "framer-motion";
@@ -10,6 +10,10 @@ export default function Header({
   totalTasks = 0,
 }) {
   const today = new Date();
+
+  const handleRefresh = () => {
+    window.location.reload();
+  };
 
   return (
     <motion.div
@@ -52,6 +56,22 @@ export default function Header({
             </p>
           </div>
         </div>
+
+        {/* REFRESH BUTTON */}
+
+        <motion.button
+          whileHover={{
+            scale: 1.08,
+            rotate: 180,
+          }}
+          whileTap={{
+            scale: 0.92,
+          }}
+          onClick={handleRefresh}
+          className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg hover:bg-white/25 transition-all duration-300"
+        >
+          <FaSyncAlt size={18} />
+        </motion.button>
       </div>
 
       {/* DATE */}
@@ -71,26 +91,6 @@ export default function Header({
           )}
         </span>
       </div>
-
-      {/* STATS */}
-{/* 
-      <div className="relative z-10 mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 flex items-center gap-4 shadow-lg">
-          <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-            <FaTasks size={22} />
-          </div>
-
-          <div>
-            <p className="text-sm opacity-80">
-              Tổng công việc
-            </p>
-
-            <h2 className="text-2xl font-bold">
-              {totalTasks}
-            </h2>
-          </div>
-        </div>
-      </div> */}
     </motion.div>
   );
 }

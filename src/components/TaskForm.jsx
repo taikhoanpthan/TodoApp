@@ -43,7 +43,7 @@ export default function TaskForm({
 
         <input
           type="text"
-          placeholder="Ví dụ: Ca sáng"
+          placeholder="Ví dụ: Nguyễn Văn A..."
           className="w-full mt-2 border border-gray-200 p-3 rounded-2xl outline-none focus:border-blue-500"
           value={creator}
           onChange={(e) =>
