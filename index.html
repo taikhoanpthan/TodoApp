@@ -1,25 +1,148 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- RESPONSIVE -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
 
-    <!-- ICON -->
-    <link rel="icon" type="image/png" href="./todologo.png" />
+    <!-- IOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <!-- PWA -->
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <meta
+      name="apple-mobile-web-app-title"
+      content="Todo List"
+    />
+
+    <!-- ANDROID -->
+    <meta
+      name="mobile-web-app-capable"
+      content="yes"
+    />
 
     <!-- THEME -->
-    <meta name="theme-color" content="#3b82f6" />
+    <meta
+      name="theme-color"
+      content="#3b82f6"
+    />
+
+    <!-- ICON -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="/todologo.png"
+    />
+
+    <!-- IOS ICON -->
+    <link
+      rel="apple-touch-icon"
+      href="/todologo.png"
+    />
+
+    <!-- PWA -->
+    <link
+      rel="manifest"
+      href="/manifest.webmanifest"
+    />
+
+    <!-- FONT -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <title>Todo List</title>
+
+    <style>
+
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+
+        background: linear-gradient(
+          180deg,
+          #eff6ff 0%,
+          #ffffff 100%
+        );
+
+        min-height: 100vh;
+
+        overscroll-behavior: none;
+
+        -webkit-font-smoothing: antialiased;
+
+        -moz-osx-font-smoothing: grayscale;
+
+        touch-action: manipulation;
+      }
+
+      /* IOS Liquid Feeling */
+      body::before {
+        content: "";
+
+        position: fixed;
+
+        inset: 0;
+
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(59, 130, 246, 0.15),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(96, 165, 250, 0.15),
+            transparent 40%
+          );
+
+        pointer-events: none;
+
+        z-index: -1;
+      }
+
+      #root {
+        min-height: 100vh;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+    </style>
   </head>
 
   <body>
     <div id="root"></div>
 
-    <script type="module" src="/src/main.jsx"></script>
+    <script
+      type="module"
+      src="/src/main.jsx"
+    ></script>
   </body>
 </html>

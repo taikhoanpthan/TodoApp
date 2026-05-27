@@ -23,7 +23,7 @@ export default function Intro({
       setTimeout(() => {
         onFinish();
       }, 600);
-    }, 3000);
+    }, 1000);
 
     return () =>
       clearTimeout(timer);
