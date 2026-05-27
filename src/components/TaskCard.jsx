@@ -22,104 +22,311 @@ export default function TaskCard({
 
   const handleViewDetail = () => {
     Swal.fire({
-      title: "Chi tiết công việc",
+      width: 560,
+
+      showConfirmButton: false,
+
+      background: "transparent",
+
+      padding: 12,
+
+      scrollbarPadding: false,
 
       html: `
-        <div style="text-align:left">
+        <div style="
+          position:relative;
+          overflow:hidden;
+          border-radius:34px;
+
+          background:rgba(255,255,255,.88);
+
+          backdrop-filter:blur(12px);
+          -webkit-backdrop-filter:blur(12px);
+
+          border:1px solid rgba(255,255,255,.6);
+
+          box-shadow:
+            0 10px 30px rgba(0,0,0,.08);
+
+          text-align:left;
+        ">
+
+          <!-- BG -->
 
           <div style="
-            background:#f8fafc;
-            padding:16px;
-            border-radius:20px;
-            margin-bottom:14px;
+            position:absolute;
+            top:-60px;
+            right:-60px;
+            width:180px;
+            height:180px;
+
+            background:
+              radial-gradient(
+                circle,
+                rgba(59,130,246,.18),
+                transparent 70%
+              );
+
+            border-radius:999px;
+          "></div>
+
+          <!-- HEADER -->
+
+          <div style="
+            position:relative;
+            z-index:2;
+
+            padding:28px;
+
+            border-bottom:
+              1px solid rgba(255,255,255,.55);
           ">
-            <div style="
-              font-size:12px;
-              color:#94a3b8;
-              margin-bottom:6px;
-              font-weight:700;
-              text-transform:uppercase;
-            ">
-              Người tạo
-            </div>
 
             <div style="
-              font-size:16px;
-              font-weight:600;
-              color:#111827;
+              display:flex;
+              justify-content:space-between;
+              align-items:center;
+              gap:14px;
             ">
-              ${task.creator}
+
+              <div>
+
+                <div style="
+                  font-size:30px;
+                  font-weight:800;
+                  color:#111827;
+                  letter-spacing:-1px;
+                ">
+                  Công việc
+                </div>
+
+                <div style="
+                  margin-top:8px;
+                  color:#6b7280;
+                  font-size:14px;
+                  font-style:italic;
+                ">
+                  ${
+                    task.completed
+                      ? "Đã hoàn thành"
+                      : "Đang thực hiện"
+                  }
+                </div>
+
+              </div>
+
+              <div style="
+                background:${
+                  task.completed
+                    ? "linear-gradient(135deg,#22c55e,#16a34a)"
+                    : "linear-gradient(135deg,#fb923c,#f97316)"
+                };
+
+                color:white;
+
+                padding:10px 16px;
+
+                border-radius:999px;
+
+                font-size:12px;
+                font-weight:700;
+              ">
+                ${
+                  task.completed
+                    ? "Hoàn thành"
+                    : "Đang làm"
+                }
+              </div>
+
             </div>
+
           </div>
 
+          <!-- BODY -->
+
           <div style="
-            background:#f8fafc;
-            padding:16px;
-            border-radius:20px;
-            margin-bottom:14px;
+            position:relative;
+            z-index:2;
+
+            padding:24px;
           ">
-            <div style="
-              font-size:12px;
-              color:#94a3b8;
-              margin-bottom:6px;
-              font-weight:700;
-              text-transform:uppercase;
-            ">
-              Ngày tạo
-            </div>
+
+            <!-- INFO -->
 
             <div style="
-              font-size:15px;
-              font-weight:500;
-              color:#111827;
+              display:grid;
+              grid-template-columns:1fr 1fr;
+              gap:12px;
+              margin-bottom:18px;
             ">
-              ${new Date(
-                task.createdAt
-              ).toLocaleString("vi-VN")}
+
+              <div style="
+                background:rgba(248,250,252,.9);
+
+                border-radius:24px;
+
+                padding:18px;
+              ">
+
+                <div style="
+                  font-size:11px;
+                  color:#94a3b8;
+
+                  margin-bottom:8px;
+
+                  font-weight:700;
+
+                  text-transform:uppercase;
+                ">
+                  Người tạo
+                </div>
+
+                <div style="
+                  font-size:17px;
+                  color:#111827;
+
+                  font-weight:700;
+
+                  word-break:break-word;
+                ">
+                  ${task.creator}
+                </div>
+
+              </div>
+
+              <div style="
+                background:rgba(248,250,252,.9);
+
+                border-radius:24px;
+
+                padding:18px;
+              ">
+
+                <div style="
+                  font-size:11px;
+                  color:#94a3b8;
+
+                  margin-bottom:8px;
+
+                  font-weight:700;
+
+                  text-transform:uppercase;
+                ">
+                  Ngày tạo
+                </div>
+
+                <div style="
+                  font-size:14px;
+                  color:#111827;
+
+                  font-weight:600;
+
+                  line-height:1.7;
+                ">
+                  ${new Date(
+                    task.createdAt
+                  ).toLocaleString("vi-VN")}
+                </div>
+
+              </div>
+
             </div>
+
+            <!-- TASK -->
+
+            <div style="
+              background:rgba(248,250,252,.9);
+
+              border-radius:28px;
+
+              padding:22px;
+            ">
+
+              <div style="
+                font-size:11px;
+                color:#94a3b8;
+
+                margin-bottom:12px;
+
+                font-weight:700;
+
+                text-transform:uppercase;
+              ">
+                Nội dung công việc
+              </div>
+
+              <div style="
+                font-size:15px;
+
+                line-height:1.9;
+
+                color:#111827;
+
+                white-space:pre-wrap;
+
+                word-break:break-word;
+              ">
+                ${task.task}
+              </div>
+
+            </div>
+
           </div>
 
-          <div style="
-            background:#f8fafc;
-            padding:18px;
-            border-radius:22px;
-          ">
-            <div style="
-              font-size:12px;
-              color:#94a3b8;
-              margin-bottom:8px;
-              font-weight:700;
-              text-transform:uppercase;
-            ">
-              Nội dung
-            </div>
+          <!-- FOOTER -->
 
-            <div style="
-              font-size:15px;
-              line-height:1.8;
-              color:#111827;
-              white-space:pre-wrap;
-              word-break:break-word;
-            ">
-              ${task.task}
-            </div>
+          <div style="
+            padding:22px 24px 24px;
+
+            border-top:
+              1px solid rgba(255,255,255,.55);
+          ">
+
+            <button
+              id="closeTaskDetail"
+              style="
+                width:100%;
+                height:56px;
+
+                border:none;
+
+                border-radius:24px;
+
+                background:
+                  linear-gradient(
+                    135deg,
+                    #3b82f6,
+                    #6366f1
+                  );
+
+                color:white;
+
+                font-size:15px;
+
+                font-weight:700;
+
+                cursor:pointer;
+              "
+            >
+              Đóng
+            </button>
+
           </div>
 
         </div>
       `,
 
-      confirmButtonText: "Đóng",
-
-      confirmButtonColor:
-        "#3b82f6",
-
-      background: "#ffffff",
-
-      customClass: {
-        popup:
-          "rounded-[30px]",
-        confirmButton:
-          "rounded-2xl",
+      didOpen: () => {
+        document
+          .getElementById(
+            "closeTaskDetail"
+          )
+          ?.addEventListener(
+            "click",
+            () => {
+              Swal.close();
+            }
+          );
       },
     });
   };
@@ -133,22 +340,22 @@ export default function TaskCard({
       const result =
         await Swal.fire({
           title:
-            "Chỉnh sửa",
+            "Chỉnh sửa công việc",
 
           html: `
-          <input
-            id="creator"
-            class="swal2-input"
-            placeholder="Người tạo"
-            value="${task.creator}"
-          />
+            <input
+              id="creator"
+              class="swal2-input"
+              placeholder="Người tạo"
+              value="${task.creator}"
+            />
 
-          <textarea
-            id="task"
-            class="swal2-textarea"
-            placeholder="Nội dung công việc"
-          >${task.task}</textarea>
-        `,
+            <textarea
+              id="task"
+              class="swal2-textarea"
+              placeholder="Nội dung công việc"
+            >${task.task}</textarea>
+          `,
 
           showCancelButton: true,
 
@@ -164,11 +371,12 @@ export default function TaskCard({
           cancelButtonColor:
             "#9ca3af",
 
-          background: "#ffffff",
+          background:
+            "rgba(255,255,255,.95)",
 
           customClass: {
             popup:
-              "rounded-[30px]",
+              "rounded-[32px]",
           },
 
           preConfirm: () => {
@@ -210,139 +418,134 @@ export default function TaskCard({
     <motion.div
       initial={{
         opacity: 0,
-        y: 14,
+        y: 20,
+        scale: 0.98,
       }}
       animate={{
         opacity: 1,
         y: 0,
+        scale: 1,
+      }}
+      exit={{
+        opacity: 0,
+        scale: 0.96,
       }}
       transition={{
-        duration: 0.22,
+        duration: 0.25,
       }}
       whileTap={{
         scale: 0.985,
       }}
       className={`
         relative
-        rounded-[30px]
-        p-5
-        border
         overflow-hidden
+        rounded-[32px]
+        p-5
+
+        border
+
         transition-all
-        duration-200
+        duration-300
 
         ${
           task.completed
             ? `
-              bg-green-50
+              bg-green-50/90
               border-green-100
             `
             : `
-              bg-white
-              border-gray-100
+              bg-white/90
+              border-white/70
             `
         }
       `}
       style={{
-        WebkitTapHighlightColor:
-          "transparent",
+        backdropFilter:
+          "blur(10px)",
+        WebkitBackdropFilter:
+          "blur(10px)",
+
+        boxShadow:
+          "0 8px 24px rgba(0,0,0,.06)",
+
         transform:
           "translateZ(0)",
+
+        WebkitTapHighlightColor:
+          "transparent",
       }}
     >
-      {/* TOP */}
+      {/* LIGHT */}
 
-      <div className="flex items-start justify-between gap-3">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/20 rounded-full pointer-events-none" />
+
+      {/* STATUS */}
+
+      <div className="absolute top-4 right-4 z-10">
+        {task.completed ? (
+          <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs px-3 py-1 rounded-full font-semibold">
+            Hoàn thành
+          </div>
+        ) : (
+          <div className="bg-gradient-to-r from-orange-400 to-orange-500 text-white text-xs px-3 py-1 rounded-full font-semibold">
+            Đang làm
+          </div>
+        )}
+      </div>
+
+      {/* CONTENT */}
+
+      <div className="relative z-10">
         
-        <div className="flex-1 min-w-0">
-          
-          {/* USER */}
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <FaUser className="text-blue-500" />
 
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <FaUser className="text-blue-500 text-[13px]" />
-
-            <span className="font-semibold truncate">
-              {task.creator}
-            </span>
-          </div>
-
-          {/* DATE */}
-
-          <div className="flex items-center gap-2 text-sm text-gray-400 mt-2">
-            <FaClock className="text-orange-400 text-[12px]" />
-
-            <span>
-              {task.createdAt
-                ? new Date(
-                    task.createdAt
-                  ).toLocaleDateString(
-                    "vi-VN"
-                  )
-                : "Không có ngày"}
-            </span>
-          </div>
+          <span className="font-semibold italic">
+            {task.creator}
+          </span>
         </div>
 
-        {/* STATUS */}
+        <div className="flex items-center gap-2 text-sm text-gray-500 mt-2">
+          <FaClock className="text-orange-400" />
+
+          <span>
+            {task.createdAt
+              ? new Date(
+                  task.createdAt
+                ).toLocaleDateString(
+                  "vi-VN"
+                )
+              : "Không có ngày"}
+          </span>
+        </div>
 
         <div
           className={`
-            px-3
-            h-8
-            rounded-full
-            flex
-            items-center
-            justify-center
-            text-xs
-            font-semibold
-            flex-shrink-0
+            mt-4
+            text-[15px]
+            leading-8
+            break-words
 
             ${
               task.completed
                 ? `
-                  bg-green-500
-                  text-white
+                  text-gray-400
+                  line-through
                 `
                 : `
-                  bg-orange-400
-                  text-white
+                  text-gray-800
                 `
             }
           `}
         >
-          {task.completed
-            ? "Done"
-            : "Doing"}
+          {task.task}
         </div>
-      </div>
 
-      {/* TASK */}
-
-      <div
-        className={`
-          mt-4
-          text-[15px]
-          leading-7
-          break-words
-
-          ${
-            task.completed
-              ? `
-                text-gray-400
-                line-through
-              `
-              : `
-                text-gray-800
-              `
-          }
-        `}
-      >
-        {task.task}
       </div>
 
       {/* ACTIONS */}
 
-      <div className="grid grid-cols-4 gap-2 mt-5">
+      <div className="relative z-10 grid grid-cols-4 gap-2 mt-5">
 
         {/* VIEW */}
 
@@ -351,10 +554,14 @@ export default function TaskCard({
             handleViewDetail
           }
           className="
-            h-11
+            h-12
             rounded-2xl
-            bg-blue-50
-            text-blue-600
+
+            bg-gradient-to-r
+            from-blue-500
+            to-indigo-500
+
+            text-white
 
             flex
             items-center
@@ -375,10 +582,14 @@ export default function TaskCard({
             handleEditTask
           }
           className="
-            h-11
+            h-12
             rounded-2xl
-            bg-orange-50
-            text-orange-500
+
+            bg-gradient-to-r
+            from-yellow-400
+            to-orange-400
+
+            text-white
 
             flex
             items-center
@@ -399,8 +610,10 @@ export default function TaskCard({
             onToggle(task)
           }
           className={`
-            h-11
+            h-12
             rounded-2xl
+
+            text-white
 
             flex
             items-center
@@ -413,12 +626,14 @@ export default function TaskCard({
             ${
               task.completed
                 ? `
-                  bg-gray-100
-                  text-gray-500
+                  bg-gradient-to-r
+                  from-gray-400
+                  to-gray-500
                 `
                 : `
-                  bg-green-50
-                  text-green-600
+                  bg-gradient-to-r
+                  from-green-500
+                  to-emerald-500
                 `
             }
           `}
@@ -433,10 +648,14 @@ export default function TaskCard({
             onDelete(task.id)
           }
           className="
-            h-11
+            h-12
             rounded-2xl
-            bg-red-50
-            text-red-500
+
+            bg-gradient-to-r
+            from-red-500
+            to-pink-500
+
+            text-white
 
             flex
             items-center
@@ -449,6 +668,7 @@ export default function TaskCard({
         >
           <FaTrash />
         </button>
+
       </div>
     </motion.div>
   );
