@@ -332,7 +332,53 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 pb-24">
-      <Toaster position="top-center" />
+      
+      {/* TOASTER FIX IOS */}
+
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={12}
+        containerStyle={{
+          top: "calc(env(safe-area-inset-top) + 10px)",
+          left: 16,
+          right: 16,
+        }}
+        toastOptions={{
+          duration: 2200,
+
+          style: {
+            borderRadius: "22px",
+            background:
+              "rgba(255,255,255,0.9)",
+            color: "#111827",
+            backdropFilter:
+              "blur(16px)",
+            WebkitBackdropFilter:
+              "blur(16px)",
+            boxShadow:
+              "0 10px 30px rgba(0,0,0,0.08)",
+            padding:
+              "14px 18px",
+            fontSize: "14px",
+            fontWeight: 600,
+          },
+
+          success: {
+            iconTheme: {
+              primary: "#22c55e",
+              secondary: "#fff",
+            },
+          },
+
+          error: {
+            iconTheme: {
+              primary: "#ef4444",
+              secondary: "#fff",
+            },
+          },
+        }}
+      />
 
       {/* HEADER */}
 
