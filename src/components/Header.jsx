@@ -28,7 +28,22 @@ export default function Header({
       transition={{
         duration: 0.5,
       }}
-      className="relative overflow-hidden bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 text-white px-5 pt-8 pb-8 rounded-b-[40px] shadow-2xl"
+      className="
+        relative
+        overflow-hidden
+        bg-gradient-to-br
+        from-blue-500
+        via-indigo-500
+        to-purple-600
+        text-white
+        px-5
+        pb-8
+        rounded-b-[40px]
+        shadow-2xl
+      "
+      style={{
+        paddingTop: "calc(env(safe-area-inset-top) + 20px)",
+      }}
     >
       {/* BACKGROUND DECOR */}
 
@@ -68,7 +83,22 @@ export default function Header({
             scale: 0.92,
           }}
           onClick={handleRefresh}
-          className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg hover:bg-white/25 transition-all duration-300"
+          className="
+            w-12
+            h-12
+            rounded-2xl
+            bg-white/15
+            backdrop-blur-md
+            border
+            border-white/20
+            flex
+            items-center
+            justify-center
+            shadow-lg
+            hover:bg-white/25
+            transition-all
+            duration-300
+          "
         >
           <FaSyncAlt size={18} />
         </motion.button>
