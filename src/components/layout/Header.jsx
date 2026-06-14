@@ -8,6 +8,10 @@ import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import useNotifications from "../../hooks/useNotifications";
 
+// IMPORT ẢNH TRỰC TIẾP ĐỂ ĐẢM BẢO VERCEL KHÔNG BỊ LỖI 404
+import todo1 from "../../assets/todo1.jpg"; 
+import todo2 from "../../assets/todo2.jpg";
+
 export default function Header({ totalTasks = 0 }) {
   const today = new Date();
   const { unreadCount } = useNotifications();
@@ -17,46 +21,53 @@ export default function Header({ totalTasks = 0 }) {
   };
 
   const handleNotification = () => {
-    const images = [
-      "src/assets/todo1.jpg", // Đường dẫn hình ảnh 1
-      "src/assets/todo2.jpg", // Đường dẫn hình ảnh 2
-    ];
+    const images = [todo1, todo2]; 
     let currentIndex = 0;
 
     Swal.fire({
-      width: "96vw", // Chiếm gần như trọn vẹn bề ngang màn hình thiết bị
+      width: "95vw", // Bung rộng 95% bề ngang màn hình thiết bị di động
       customClass: {
-        popup: "max-w-[1300px]", // SỬA CHÍNH: Tăng giới hạn từ 1100px lên 1300px giúp ảnh to rộng hơn nữa
+        popup: "max-w-[1350px]", // Thiết lập kích thước tối đa siêu rộng cho PC để xem bảng biểu thoải mái
       },
       showConfirmButton: false,
-      background: "transparent",
+      background: "transparent", // Giữ transparent để custom box hoàn toàn phía dưới
       html: `
         <style>
+          /* Loại bỏ khoảng trống thừa của SweetAlert2 */
+          .swal2-html-container {
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+          /* Nút chuyển ảnh siêu mờ, không gây phân tâm, tăng trải nghiệm UX */
           .custom-nav-btn {
-            opacity: 0.15 !important;
+            opacity: 0.12 !important;
             transition: all 0.3s ease !important;
           }
           .custom-nav-btn:hover {
             opacity: 0.9 !important;
             background: #ffffff !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
           }
+          /* Nút đóng cửa sổ */
           .close-swal-btn {
-            opacity: 0.3 !important;
-            transition: all 0.3s ease !important;
+            opacity: 0.4 !important;
+            transition: all 0.2s ease !important;
           }
           .close-swal-btn:hover {
             opacity: 1 !important;
+            transform: scale(1.05);
           }
         </style>
 
         <div
           style="
-            background: white;
-            border-radius: 16px;
+            background: #ffffff;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 25px 60px rgba(0,0,0,.35);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.25);
             position: relative;
             width: 100%;
+            border: 1px solid rgba(0,0,0,0.05);
           "
         >
           <button 
@@ -66,43 +77,41 @@ export default function Header({ totalTasks = 0 }) {
               position: absolute;
               top: 15px;
               right: 15px;
-              background: rgba(0, 0, 0, 0.6);
+              background: rgba(0, 0, 0, 0.5);
               color: white;
               border: none;
               border-radius: 50%;
-              width: 42px;
-              height: 42px;
+              width: 38px;
+              height: 38px;
               cursor: pointer;
-              font-size: 20px;
+              font-size: 18px;
               font-weight: bold;
               z-index: 30;
               display: flex;
               align-items: center;
               justify-content: center;
-              box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+              box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             "
           >
             ✕
           </button>
 
-          <div style="position: relative; width: 100%; background: #ffffff; padding: 0; overflow: hidden;">
+          <div style="position: relative; width: 100%; background: #ffffff; padding: 12px; box-sizing: border-box;">
             
-            <div style="width: 100%; height: auto; overflow: hidden; display: flex; justify-content: center; align-items: center;">
-              <img 
-                id="sliderImage" 
-                src="${images[currentIndex]}" 
-                style="
-                  width: 100%; 
-                  height: auto; 
-                  display: block; 
-                  margin: 0 auto;
-                  transform: scale(1.15); 
-                  transform-origin: center center;
-                  padding: 15px 0; /* Thu nhỏ khoảng cách đệm để ảnh chiếm không gian tốt hơn */
-                " 
-                alt="Notification"
-              />
-            </div>
+            <img 
+              id="sliderImage" 
+              src="${images[currentIndex]}" 
+              style="
+                width: 100%; 
+                height: auto; 
+                max-height: 78vh; /* Giới hạn chiều cao vừa vặn để tránh cuộn trang dọc */
+                object-fit: contain;
+                display: block; 
+                margin: 0 auto;
+                border-radius: 12px;
+              " 
+              alt="Notification"
+            />
 
             <button 
               id="prevImgBtn"
@@ -110,17 +119,16 @@ export default function Header({ totalTasks = 0 }) {
               style="
                 position: absolute;
                 top: 50%;
-                left: 20px;
+                left: 25px;
                 transform: translateY(-50%);
-                background: rgba(255, 255, 255, 0.6);
-                color: #000000;
+                background: rgba(255, 255, 255, 0.8);
+                color: #333333;
                 border: 1px solid #e5e7eb;
                 border-radius: 50%;
-                width: 55px;
-                height: 55px;
+                width: 52px;
+                height: 52px;
                 cursor: pointer;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-                font-size: 26px;
+                font-size: 24px;
                 font-weight: bold;
                 display: flex;
                 align-items: center;
@@ -137,17 +145,16 @@ export default function Header({ totalTasks = 0 }) {
               style="
                 position: absolute;
                 top: 50%;
-                right: 20px;
+                right: 25px;
                 transform: translateY(-50%);
-                background: rgba(255, 255, 255, 0.6);
-                color: #000000;
+                background: rgba(255, 255, 255, 0.8);
+                color: #333333;
                 border: 1px solid #e5e7eb;
                 border-radius: 50%;
-                width: 55px;
-                height: 55px;
+                width: 52px;
+                height: 52px;
                 cursor: pointer;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-                font-size: 26px;
+                font-size: 24px;
                 font-weight: bold;
                 display: flex;
                 align-items: center;
@@ -161,19 +168,19 @@ export default function Header({ totalTasks = 0 }) {
             <div 
               style="
                 position: absolute;
-                bottom: 15px;
+                bottom: 25px;
                 left: 50%;
                 transform: translateX(-50%);
                 display: flex;
                 gap: 10px;
-                background: rgba(0, 0, 0, 0.5);
+                background: rgba(0, 0, 0, 0.6);
                 padding: 6px 14px;
                 border-radius: 20px;
                 z-index: 20;
               "
             >
-              <span id="dot0" style="width: 10px; height: 10px; border-radius: 50%; background: white; transition: background 0.3s;"></span>
-              <span id="dot1" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.4); transition: background 0.3s;"></span>
+              <span id="dot0" style="width: 9px; height: 9px; border-radius: 50%; background: white; transition: background 0.3s;"></span>
+              <span id="dot1" style="width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.4); transition: background 0.3s;"></span>
             </div>
 
           </div>
