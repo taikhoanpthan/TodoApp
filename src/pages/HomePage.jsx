@@ -22,330 +22,187 @@ import {
 } from "../services/api";
 
 export default function HomePage() {
-  const { tasks, setTasks, loading } =
-    useTasks();
-
-  const [filter, setFilter] =
-    useState("pending");
-
-  const [showIntro, setShowIntro] =
-    useState(true);
-
-  const [showAll, setShowAll] =
-    useState(false);
+  const { tasks, setTasks, loading } = useTasks();
+  const [filter, setFilter] = useState("pending");
+  const [showIntro, setShowIntro] = useState(true);
+  const [showAll, setShowAll] = useState(false);
 
   // =====================
   // ADD TASK
   // =====================
-
-  const handleAdd = async (
-    newTask
-  ) => {
+  const handleAdd = async (newTask) => {
     try {
-      const createdTask =
-        await createTask({
-          creator:
-            newTask.creator,
-          task: newTask.task,
-          completed: false,
-          createdAt:
-            new Date().toISOString(),
-        });
+      const createdTask = await createTask({
+        creator: newTask.creator,
+        task: newTask.task,
+        completed: false,
+        createdAt: new Date().toISOString(),
+      });
 
-      setTasks((prev) => [
-        createdTask,
-        ...prev,
-      ]);
-
-      toast.success(
-        "Tạo công việc thành công"
-      );
+      setTasks((prev) => [createdTask, ...prev]);
+      toast.success("Tạo công việc thành công");
     } catch (error) {
       console.log(error);
-      toast.error(
-        "Có lỗi xảy ra"
-      );
+      toast.error("Có lỗi xảy ra");
     }
   };
 
   // =====================
   // DELETE TASK
   // =====================
-
-  const handleDelete = async (
-    id
-  ) => {
+  const handleDelete = async (id) => {
     try {
-      const result =
-        await Swal.fire({
-          title:
-            "Xác nhận xóa",
-          text: "Nhập mật khẩu để xóa",
-          input: "password",
-          inputPlaceholder:
-            "Nhập mật khẩu...",
-          confirmButtonText:
-            "Xóa",
-          cancelButtonText:
-            "Hủy",
-          showCancelButton: true,
-          confirmButtonColor:
-            "#ef4444",
-          cancelButtonColor:
-            "#9ca3af",
-        });
+      const result = await Swal.fire({
+        title: "Xác nhận xóa",
+        text: "Nhập mật khẩu để xóa",
+        input: "password",
+        inputPlaceholder: "Nhập mật khẩu...",
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+        showCancelButton: true,
+        confirmButtonColor: "#ef4444",
+        cancelButtonColor: "#9ca3af",
+      });
 
-      if (!result.isConfirmed)
-        return;
+      if (!result.isConfirmed) return;
 
-      if (
-        result.value !==
-        "matkhau123"
-      ) {
-        toast.error(
-          "Sai mật khẩu"
-        );
+      if (result.value !== "matkhau123") {
+        toast.error("Sai mật khẩu");
         return;
       }
 
       await deleteTask(id);
-
-      setTasks((prev) =>
-        prev.filter(
-          (task) =>
-            task.id !== id
-        )
-      );
-
-      toast.success(
-        "Đã xóa công việc"
-      );
+      setTasks((prev) => prev.filter((task) => task.id !== id));
+      toast.success("Đã xóa công việc");
     } catch (error) {
       console.log(error);
-      toast.error(
-        "Xóa thất bại"
-      );
+      toast.error("Xóa thất bại");
     }
   };
 
   // =====================
   // TOGGLE TASK
   // =====================
+  const handleToggle = async (task) => {
+    try {
+      const updatedTask = {
+        ...task,
+        completed: !task.completed,
+      };
 
-  const handleToggle =
-    async (task) => {
-      try {
-        const updatedTask = {
-          ...task,
-          completed:
-            !task.completed,
-        };
+      await updateTask(task.id, updatedTask);
+      setTasks((prev) =>
+        prev.map((item) => (item.id === task.id ? updatedTask : item))
+      );
 
-        await updateTask(
-          task.id,
-          updatedTask
-        );
-
-        setTasks((prev) =>
-          prev.map((item) =>
-            item.id === task.id
-              ? updatedTask
-              : item
-          )
-        );
-
-        toast.success(
-          updatedTask.completed
-            ? "Đã hoàn thành"
-            : "Đã hoàn tác"
-        );
-      } catch (error) {
-        console.log(error);
-        toast.error(
-          "Cập nhật thất bại"
-        );
-      }
-    };
+      toast.success(updatedTask.completed ? "Đã hoàn thành" : "Đã hoàn tác");
+    } catch (error) {
+      console.log(error);
+      toast.error("Cập nhật thất bại");
+    }
+  };
 
   // =====================
   // EDIT TASK
   // =====================
+  const handleEdit = async (task, data) => {
+    try {
+      const updatedTask = {
+        ...task,
+        creator: data.creator,
+        task: data.task,
+      };
 
-  const handleEdit =
-    async (task, data) => {
-      try {
-        const updatedTask = {
-          ...task,
-          creator:
-            data.creator,
-          task: data.task,
-        };
+      await updateTask(task.id, updatedTask);
+      setTasks((prev) =>
+        prev.map((item) => (item.id === task.id ? updatedTask : item))
+      );
 
-        await updateTask(
-          task.id,
-          updatedTask
-        );
-
-        setTasks((prev) =>
-          prev.map((item) =>
-            item.id === task.id
-              ? updatedTask
-              : item
-          )
-        );
-
-        toast.success(
-          "Đã cập nhật công việc"
-        );
-      } catch (error) {
-        console.log(error);
-        toast.error(
-          "Cập nhật thất bại"
-        );
-      }
-    };
+      toast.success("Đã cập nhật công việc");
+    } catch (error) {
+      console.log(error);
+      toast.error("Cập nhật thất bại");
+    }
+  };
 
   // =====================
   // FILTER
   // =====================
-
   const filteredTasks =
     filter === "completed"
-      ? tasks.filter(
-          (task) =>
-            task.completed
-        )
+      ? tasks.filter((task) => task.completed)
       : filter === "pending"
-      ? tasks.filter(
-          (task) =>
-            !task.completed
-        )
+      ? tasks.filter((task) => !task.completed)
       : tasks;
 
   // =====================
   // SHOW MORE
   // =====================
-
-  const visibleTasks =
-    showAll
-      ? filteredTasks
-      : filteredTasks.slice(
-          0,
-          5
-        );
+  const visibleTasks = showAll ? filteredTasks : filteredTasks.slice(0, 5);
 
   // =====================
   // STATS
   // =====================
-
-  const completedCount =
-    tasks.filter(
-      (task) =>
-        task.completed
-    ).length;
-
-  const pendingCount =
-    tasks.filter(
-      (task) =>
-        !task.completed
-    ).length;
-
-  // =====================
-  // INTRO
-  // =====================
+  const completedCount = tasks.filter((task) => task.completed).length;
+  const pendingCount = tasks.filter((task) => !task.completed).length;
 
   if (showIntro) {
-    return (
-      <Intro
-        onFinish={() =>
-          setShowIntro(false)
-        }
-      />
-    );
+    return <Intro onFinish={() => setShowIntro(false)} />;
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 pb-24">
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-      />
+    /* SỬA CHÍNH TẠI ĐÂY:
+       - Light Mode: bg-gradient từ xám sang xám đậm nhạt truyền thống.
+       - Dark Mode (Style MMO/Neon): Đổi thành nền tối huyền bí (zinc-950), chuyển màu mượt mà (transition-colors).
+    */
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-zinc-900 dark:to-black pb-24 transition-colors duration-500">
+      <Toaster position="top-center" reverseOrder={false} />
 
-      <Header
-        totalTasks={tasks.length}
-      />
+      <Header totalTasks={tasks.length} />
 
       <Dashboard
         total={tasks.length}
-        completed={
-          completedCount
-        }
+        completed={completedCount}
         pending={pendingCount}
       />
 
-      <TaskForm
-        onAdd={handleAdd}
-      />
+      <TaskForm onAdd={handleAdd} />
 
-      <FilterBar
-        filter={filter}
-        setFilter={setFilter}
-      />
+      <FilterBar filter={filter} setFilter={setFilter} />
 
       <div className="px-4 mt-4">
         {loading ? (
           <div className="flex flex-col items-center justify-center mt-24">
-            <div className="w-10 h-10 rounded-full border-4 border-blue-500 border-t-transparent animate-spin" />
+            {/* Vòng xoay Loading đổi thành màu xanh Cyan Neon phát sáng rực rỡ ở Dark Mode */}
+            <div className="w-10 h-10 rounded-full border-4 border-blue-500 border-t-transparent dark:border-cyan-400 dark:border-t-transparent animate-spin [box-shadow:0_0_15px_rgba(34,211,238,0.5)]" />
 
-            <p className="mt-4 text-gray-400 text-sm">
-              Đang tải dữ liệu...
+            <p className="mt-4 text-gray-400 dark:text-cyan-400/80 text-sm font-medium tracking-wide">
+              Đang tải dữ liệu hệ thống...
             </p>
           </div>
-        ) : filteredTasks.length ===
-          0 ? (
+        ) : filteredTasks.length === 0 ? (
           <EmptyState />
         ) : (
           <>
             <TaskList
               tasks={visibleTasks}
-              onDelete={
-                handleDelete
-              }
-              onToggle={
-                handleToggle
-              }
+              onDelete={handleDelete}
+              onToggle={handleToggle}
               onEdit={handleEdit}
             />
 
-            {filteredTasks.length >
-              5 && (
+            {filteredTasks.length > 5 && (
+              /* SỬA CHÍNH NÚT XEM THÊM:
+                 - Ở Dark Mode, biến thành nút viền Neon Cyberpunk cực ngầu.
+                 - Hiệu ứng phát sáng bóng mờ [box-shadow] tăng thẩm mỹ MMO.
+              */
               <button
-                onClick={() =>
-                  setShowAll(
-                    !showAll
-                  )
-                }
-                className="
-                  w-full
-                  mt-4
-                  py-4
-                  rounded-2xl
-                  bg-white
-                  border
-                  border-gray-200
-                  shadow-sm
-                  text-gray-700
-                  font-semibold
-                  hover:bg-gray-50
-                  transition-all
-                "
+                onClick={() => setShowAll(!showAll)}
+                className="w-full mt-4 py-4 rounded-2xl bg-white text-gray-700 font-semibold border border-gray-200 hover:bg-gray-50 dark:bg-zinc-900 dark:border-purple-500/50 dark:text-purple-400 dark:hover:bg-purple-950/20 dark:hover:border-purple-400 dark:[box-shadow:0_4px_20px_rgba(168,85,247,0.15)] transition-all duration-300"
               >
                 {showAll
-                  ? "Thu gọn"
-                  : `Xem thêm ${
-                      filteredTasks.length -
-                      5
-                    } công việc`}
+                  ? "Thu gọn bảng"
+                  : `Xem thêm ${filteredTasks.length - 5} công việc`}
               </button>
             )}
           </>
