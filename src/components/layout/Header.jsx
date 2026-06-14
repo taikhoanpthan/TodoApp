@@ -276,7 +276,7 @@ export default function Header({ totalTasks = 0 }) {
               TodoList
             </h1>
             <p className="text-xs opacity-80 mt-0.5 dark:text-cyan-300 font-medium">
-              Mỹ đẹp trai !!!
+              Mỹ đẹp trai 
             </p>
           </div>
         </div>

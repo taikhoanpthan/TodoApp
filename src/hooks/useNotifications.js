@@ -20,7 +20,7 @@ export default function useNotifications() {
 
     setNotifications((prev) => [
       newItem,
-      ...prev,
+      ...prev,y
     ]);
   };
 

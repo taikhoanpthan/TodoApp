@@ -1,18 +1,11 @@
 const defaultNotifications = [
   {
     id: 1,
-    title: "Cập nhật hệ thống",
-    content: "Đã thêm tính năng chỉnh sửa công việc.",
-    createdAt: new Date().toISOString(),
-    read: false,
-  },
-  {
-    id: 2,
-    title: "Thông báo mới",
-    content: "Bạn có 3 công việc chưa hoàn thành.",
-    createdAt: new Date().toISOString(),
-    read: false,
-  },
+    title: "Chào mừng Mỹ đẹp trai!",
+    message: "Hệ thống quản lý công việc đã sẵn sàng.",
+    isRead: false,
+    createdAt: new Date().toISOString()
+  }
 ];
 
 export default defaultNotifications;
