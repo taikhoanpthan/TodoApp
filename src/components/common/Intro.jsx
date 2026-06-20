@@ -21,7 +21,7 @@ export default function Intro({ onFinish }) {
     const timer = setTimeout(() => {
       setShow(false);
       setTimeout(() => onFinish(), 800); // Đợi hiệu ứng exit hoàn thành mới xóa component
-    }, 2000);
+    }, 1000);
 
     return () => {
       clearInterval(interval);
