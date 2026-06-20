@@ -12,13 +12,13 @@ import Swal from "sweetalert2";
 import useNotifications from "../../hooks/useNotifications";
 
 // IMPORT ẢNH TRỰC TIẾP ĐỂ VERCEL ĐỊNH VỊ CHÍNH XÁC KHI BUILD
-import todo1 from "../../assets/todo1.jpg"; 
+import todo1 from "../../assets/todo1.jpg";
 import todo2 from "../../assets/todo2.jpg";
-
+import lich from "../../assets/lich.jpg";
 export default function Header({ totalTasks = 0 }) {
   const today = new Date();
   const { unreadCount } = useNotifications();
-  
+
   // Khởi tạo trạng thái Dark Mode từ localStorage
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
@@ -47,21 +47,25 @@ export default function Header({ totalTasks = 0 }) {
 
   // Hàm xử lý hiển thị form ảnh thông báo rộng rãi, UX sáng/tối tự động
   const handleNotification = () => {
-    const images = [todo1, todo2]; 
+    const images = [todo1, todo2, lich];
     let currentIndex = 0;
 
     const popupBg = isDarkMode ? "#09090b" : "#ffffff";
-    const textColor = isDarkMode ? "#22d3ee" : "#333333"; 
-    const borderColor = isDarkMode ? "rgba(168, 85, 247, 0.4)" : "rgba(0,0,0,0.05)"; 
-    const navBtnBg = isDarkMode ? "rgba(15, 23, 42, 0.9)" : "rgba(255, 255, 255, 0.8)";
+    const textColor = isDarkMode ? "#22d3ee" : "#333333";
+    const borderColor = isDarkMode
+      ? "rgba(168, 85, 247, 0.4)"
+      : "rgba(0,0,0,0.05)";
+    const navBtnBg = isDarkMode
+      ? "rgba(15, 23, 42, 0.9)"
+      : "rgba(255, 255, 255, 0.8)";
 
     Swal.fire({
       width: "95vw",
       customClass: {
-        popup: "max-w-[1350px]", 
+        popup: "max-w-[1350px]",
       },
       showConfirmButton: false,
-      background: "transparent", 
+      background: "transparent",
       html: `
         <style>
           .swal2-html-container {
@@ -209,8 +213,9 @@ export default function Header({ totalTasks = 0 }) {
                 border: ${isDarkMode ? "1px solid rgba(34, 211, 238, 0.3)" : "none"};
               "
             >
-              <span id="dot0" style="width: 9px; height: 9px; border-radius: 50%; background: ${isDarkMode ? "#22d3ee" : "white"}; transition: background 0.3s;"></span>
-              <span id="dot1" style="width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s;"></span>
+            <span id="dot2" style="width: 9px; height: 9px; border-radius: 50%; background: ${isDarkMode ? "#22d3ee" : "white"}; transition: background 0.3s;"></span>
+            <span id="dot0" style="width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s;"></span>
+            <span id="dot1" style="width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s;"></span>
             </div>
           </div>
         </div>
@@ -224,28 +229,36 @@ export default function Header({ totalTasks = 0 }) {
           if (imgElement) imgElement.src = images[currentIndex];
           if (dot0 && dot1) {
             if (isDarkMode) {
-              dot0.style.background = currentIndex === 0 ? "#22d3ee" : "rgba(255,255,255,0.3)";
-              dot1.style.background = currentIndex === 1 ? "#22d3ee" : "rgba(255,255,255,0.3)";
+              dot0.style.background =
+                currentIndex === 0 ? "#22d3ee" : "rgba(255,255,255,0.3)";
+              dot1.style.background =
+                currentIndex === 1 ? "#22d3ee" : "rgba(255,255,255,0.3)";
             } else {
-              dot0.style.background = currentIndex === 0 ? "white" : "rgba(255,255,255,0.4)";
-              dot1.style.background = currentIndex === 1 ? "white" : "rgba(255,255,255,0.4)";
+              dot0.style.background =
+                currentIndex === 0 ? "white" : "rgba(255,255,255,0.4)";
+              dot1.style.background =
+                currentIndex === 1 ? "white" : "rgba(255,255,255,0.4)";
             }
           }
         };
 
         document.getElementById("prevImgBtn")?.addEventListener("click", () => {
-          currentIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+          currentIndex =
+            currentIndex === 0 ? images.length - 1 : currentIndex - 1;
           updateSlider();
         });
 
         document.getElementById("nextImgBtn")?.addEventListener("click", () => {
-          currentIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+          currentIndex =
+            currentIndex === images.length - 1 ? 0 : currentIndex + 1;
           updateSlider();
         });
 
-        document.getElementById("closeSwalBtn")?.addEventListener("click", () => {
-          Swal.close();
-        });
+        document
+          .getElementById("closeSwalBtn")
+          ?.addEventListener("click", () => {
+            Swal.close();
+          });
       },
     });
   };
@@ -276,18 +289,28 @@ export default function Header({ totalTasks = 0 }) {
               TodoList
             </h1>
             <p className="text-xs opacity-80 mt-0.5 dark:text-cyan-300 font-medium">
-              Mỹ đẹp trai 
+              Mỹ đẹp trai
             </p>
           </div>
         </div>
 
         {/* Nút Light/Dark Mode độc lập nổi bật */}
         <motion.button
-          whileHover={{ scale: 1.08, rotate: 180, boxShadow: isDarkMode ? "0 0 15px rgba(234,179,8,0.6)" : "0 0 15px rgba(96,165,250,0.6)" }}
+          whileHover={{
+            scale: 1.08,
+            rotate: 180,
+            boxShadow: isDarkMode
+              ? "0 0 15px rgba(234,179,8,0.6)"
+              : "0 0 15px rgba(96,165,250,0.6)",
+          }}
           whileTap={{ scale: 0.92 }}
           onClick={toggleDarkMode}
           className="w-11 h-11 rounded-xl bg-white/15 dark:bg-zinc-950/50 dark:border dark:border-purple-500/50 backdrop-blur-md flex items-center justify-center shadow-lg text-yellow-300 dark:text-fuchsia-400 transition-all duration-300"
-          title={isDarkMode ? "Chuyển sang giao diện sáng" : "Chuyển sang giao diện tối"}
+          title={
+            isDarkMode
+              ? "Chuyển sang giao diện sáng"
+              : "Chuyển sang giao diện tối"
+          }
         >
           {isDarkMode ? <FaSun size={18} /> : <FaMoon size={18} />}
         </motion.button>
@@ -297,7 +320,6 @@ export default function Header({ totalTasks = 0 }) {
           TẦNG 2: THANH LỊCH VÀ CÁC NÚT PHỤ (ĐÃ TÁCH BIỆT RỘNG RÃI)
           ======================================================= */}
       <div className="relative z-10 mt-5 flex items-center justify-between gap-4">
-        
         {/* Góc trái: Lịch ngày tháng */}
         <div className="flex flex-1 items-center gap-2.5 bg-white/10 dark:bg-zinc-950/40 dark:border dark:border-cyan-500/20 backdrop-blur-md px-4 py-2.5 rounded-xl dark:text-cyan-300">
           <FaCalendarAlt className="dark:text-cyan-400 text-sm" />
@@ -315,7 +337,10 @@ export default function Header({ totalTasks = 0 }) {
         <div className="flex items-center gap-2">
           {/* Nút Thông báo */}
           <motion.button
-            whileHover={{ scale: 1.05, boxShadow: isDarkMode ? "0 0 15px rgba(34,211,238,0.5)" : "none" }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: isDarkMode ? "0 0 15px rgba(34,211,238,0.5)" : "none",
+            }}
             whileTap={{ scale: 0.95 }}
             onClick={handleNotification}
             className="relative w-10 h-10 rounded-xl bg-white/10 dark:bg-zinc-950/50 dark:border dark:border-cyan-500/40 backdrop-blur-md flex items-center justify-center shadow-md text-white dark:text-cyan-400 transition-all duration-300"
@@ -330,7 +355,11 @@ export default function Header({ totalTasks = 0 }) {
 
           {/* Nút Tải lại trang */}
           <motion.button
-            whileHover={{ scale: 1.05, rotate: 180, boxShadow: isDarkMode ? "0 0 15px rgba(168,85,247,0.5)" : "none" }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 180,
+              boxShadow: isDarkMode ? "0 0 15px rgba(168,85,247,0.5)" : "none",
+            }}
             whileTap={{ scale: 0.95 }}
             onClick={handleRefresh}
             className="w-10 h-10 rounded-xl bg-white/10 dark:bg-zinc-950/50 dark:border dark:border-emerald-500/40 backdrop-blur-md flex items-center justify-center shadow-md text-white dark:text-emerald-400 transition-all duration-300"
@@ -339,7 +368,6 @@ export default function Header({ totalTasks = 0 }) {
             <FaSyncAlt size={14} />
           </motion.button>
         </div>
-
       </div>
     </motion.div>
   );
