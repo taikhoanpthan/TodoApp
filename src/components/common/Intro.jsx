@@ -7,6 +7,11 @@ export default function Intro({ onFinish }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShow(false);
+<<<<<<< HEAD
+=======
+      setTimeout(() => onFinish(), 800); // Đợi hiệu ứng exit hoàn thành mới xóa component
+    }, 1000);
+>>>>>>> fa7b4fb5300a8d5195ff3748558abd4e03828960
 
       setTimeout(() => {
         onFinish();
