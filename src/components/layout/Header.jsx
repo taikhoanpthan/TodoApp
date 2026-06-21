@@ -47,218 +47,153 @@ export default function Header({ totalTasks = 0 }) {
 
   // Hàm xử lý hiển thị form ảnh thông báo rộng rãi, UX sáng/tối tự động
   const handleNotification = () => {
-    const images = [todo1, todo2, lich];
-    let currentIndex = 0;
+const images = [lich, todo1, todo2];    let currentIndex = 0;
+    let startX = 0;
 
-    const popupBg = isDarkMode ? "#09090b" : "#ffffff";
-    const textColor = isDarkMode ? "#22d3ee" : "#333333";
-    const borderColor = isDarkMode
-      ? "rgba(168, 85, 247, 0.4)"
-      : "rgba(0,0,0,0.05)";
-    const navBtnBg = isDarkMode
-      ? "rgba(15, 23, 42, 0.9)"
-      : "rgba(255, 255, 255, 0.8)";
+    const updateSlider = () => {
+      const img = document.getElementById("sliderImage");
+
+      if (img) {
+        img.style.opacity = "0";
+
+        setTimeout(() => {
+          img.src = images[currentIndex];
+          img.style.opacity = "1";
+        }, 150);
+      }
+
+      for (let i = 0; i < images.length; i++) {
+        const dot = document.getElementById(`dot${i}`);
+
+        if (dot) {
+          dot.style.background =
+            i === currentIndex ? "#ffffff" : "rgba(255,255,255,0.35)";
+        }
+      }
+    };
 
     Swal.fire({
       width: "95vw",
-      customClass: {
-        popup: "max-w-[1350px]",
-      },
       showConfirmButton: false,
       background: "transparent",
       html: `
-        <style>
-          .swal2-html-container {
-            margin: 0 !important;
-            padding: 0 !important;
-          }
-          .custom-nav-btn {
-            opacity: 0.3 !important;
-            transition: all 0.3s ease !important;
-          }
-          .custom-nav-btn:hover {
-            opacity: 1 !important;
-            background: ${isDarkMode ? "#1e1b4b" : "#ffffff"} !important;
-            color: ${isDarkMode ? "#38bdf8" : "#333333"} !important;
-            box-shadow: ${isDarkMode ? "0 0 20px rgba(56, 189, 248, 0.6)" : "0 8px 25px rgba(0,0,0,0.2)"} !important;
-            border-color: ${isDarkMode ? "#38bdf8" : "#e5e7eb"} !important;
-          }
-          .close-swal-btn {
-            opacity: 0.6 !important;
-            transition: all 0.2s ease !important;
-          }
-          .close-swal-btn:hover {
-            opacity: 1 !important;
-            color: #f43f5e !important;
-            transform: scale(1.1);
-          }
-        </style>
+      <div
+        style="
+          position:relative;
+          border-radius:20px;
+          overflow:hidden;
+          background:#111827;
+        "
+      >
+        <button
+          id="closeSwalBtn"
+          style="
+            position:absolute;
+            top:10px;
+            right:10px;
+            z-index:99;
+            width:36px;
+            height:36px;
+            border:none;
+            border-radius:50%;
+            background:rgba(0,0,0,.5);
+            color:white;
+            cursor:pointer;
+          "
+        >
+          ✕
+        </button>
+
+        <img
+          id="sliderImage"
+          src="${images[0]}"
+          style="
+            width:100%;
+            max-height:80vh;
+            object-fit:contain;
+            display:block;
+            transition:opacity .3s ease;
+            user-select:none;
+            touch-action:pan-y;
+          "
+        />
 
         <div
           style="
-            background: ${popupBg};
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: ${isDarkMode ? "0 0 40px rgba(168, 85, 247, 0.25)" : "0 25px 60px rgba(0,0,0,0.3)"};
-            position: relative;
-            width: 100%;
-            border: 2px solid ${borderColor};
+            position:absolute;
+            bottom:15px;
+            left:50%;
+            transform:translateX(-50%);
+            display:flex;
+            gap:8px;
+            z-index:10;
           "
         >
-          <button 
-            id="closeSwalBtn"
-            class="close-swal-btn"
-            style="
-              position: absolute;
-              top: 15px;
-              right: 15px;
-              background: rgba(0, 0, 0, 0.6);
-              color: white;
-              border: none;
-              border-radius: 50%;
-              width: 38px;
-              height: 38px;
-              cursor: pointer;
-              font-size: 18px;
-              font-weight: bold;
-              z-index: 30;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
-          >
-            ✕
-          </button>
+          <span id="dot0"
+            style="width:10px;height:10px;border-radius:50%;background:white;">
+          </span>
 
-          <div style="position: relative; width: 100%; padding: 16px; box-sizing: border-box;">
-            <img 
-              id="sliderImage" 
-              src="${images[currentIndex]}" 
-              style="
-                width: 100%; 
-                height: auto; 
-                max-height: 75vh; 
-                object-fit: contain;
-                display: block; 
-                margin: 0 auto;
-                border-radius: 14px;
-              " 
-              alt="Notification"
-            />
+          <span id="dot1"
+            style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.35);">
+          </span>
 
-            <button 
-              id="prevImgBtn"
-              class="custom-nav-btn"
-              style="
-                position: absolute;
-                top: 50%;
-                left: 25px;
-                transform: translateY(-50%);
-                background: ${navBtnBg};
-                color: ${textColor};
-                border: 1px solid ${isDarkMode ? "#a855f7" : "#e5e7eb"};
-                border-radius: 50%;
-                width: 52px;
-                height: 52px;
-                cursor: pointer;
-                font-size: 24px;
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 20;
-              "
-            >
-              ❮
-            </button>
-
-            <button 
-              id="nextImgBtn"
-              class="custom-nav-btn"
-              style="
-                position: absolute;
-                top: 50%;
-                right: 25px;
-                transform: translateY(-50%);
-                background: ${navBtnBg};
-                color: ${textColor};
-                border: 1px solid ${isDarkMode ? "#a855f7" : "#e5e7eb"};
-                border-radius: 50%;
-                width: 52px;
-                height: 52px;
-                cursor: pointer;
-                font-size: 24px;
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 20;
-              "
-            >
-              ❯
-            </button>
-
-            <div 
-              style="
-                position: absolute;
-                bottom: 30px;
-                left: 50%;
-                transform: translateX(-50%);
-                display: flex;
-                gap: 10px;
-                background: rgba(0, 0, 0, 0.7);
-                padding: 6px 14px;
-                border-radius: 20px;
-                z-index: 20;
-                border: ${isDarkMode ? "1px solid rgba(34, 211, 238, 0.3)" : "none"};
-              "
-            >
-            <span id="dot2" style="width: 9px; height: 9px; border-radius: 50%; background: ${isDarkMode ? "#22d3ee" : "white"}; transition: background 0.3s;"></span>
-            <span id="dot0" style="width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s;"></span>
-            <span id="dot1" style="width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s;"></span>
-            </div>
-          </div>
+          <span id="dot2"
+            style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.35);">
+          </span>
         </div>
-      `,
+      </div>
+    `,
       didOpen: () => {
-        const imgElement = document.getElementById("sliderImage");
-        const dot0 = document.getElementById("dot0");
-        const dot1 = document.getElementById("dot1");
-
-        const updateSlider = () => {
-          if (imgElement) imgElement.src = images[currentIndex];
-          if (dot0 && dot1) {
-            if (isDarkMode) {
-              dot0.style.background =
-                currentIndex === 0 ? "#22d3ee" : "rgba(255,255,255,0.3)";
-              dot1.style.background =
-                currentIndex === 1 ? "#22d3ee" : "rgba(255,255,255,0.3)";
-            } else {
-              dot0.style.background =
-                currentIndex === 0 ? "white" : "rgba(255,255,255,0.4)";
-              dot1.style.background =
-                currentIndex === 1 ? "white" : "rgba(255,255,255,0.4)";
-            }
-          }
-        };
-
-        document.getElementById("prevImgBtn")?.addEventListener("click", () => {
-          currentIndex =
-            currentIndex === 0 ? images.length - 1 : currentIndex - 1;
-          updateSlider();
-        });
-
-        document.getElementById("nextImgBtn")?.addEventListener("click", () => {
-          currentIndex =
-            currentIndex === images.length - 1 ? 0 : currentIndex + 1;
-          updateSlider();
-        });
+        const img = document.getElementById("sliderImage");
 
         document
           .getElementById("closeSwalBtn")
-          ?.addEventListener("click", () => {
-            Swal.close();
-          });
+          ?.addEventListener("click", () => Swal.close());
+
+        // Vuốt trên điện thoại
+        img?.addEventListener("touchstart", (e) => {
+          startX = e.touches[0].clientX;
+        });
+
+        img?.addEventListener("touchend", (e) => {
+          const endX = e.changedTouches[0].clientX;
+          const distance = startX - endX;
+
+          if (Math.abs(distance) < 50) return;
+
+          if (distance > 0) {
+            currentIndex =
+              currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+          } else {
+            currentIndex =
+              currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+          }
+
+          updateSlider();
+        });
+
+        // Kéo chuột trên PC
+        let mouseDownX = 0;
+
+        img?.addEventListener("mousedown", (e) => {
+          mouseDownX = e.clientX;
+        });
+
+        img?.addEventListener("mouseup", (e) => {
+          const distance = mouseDownX - e.clientX;
+
+          if (Math.abs(distance) < 50) return;
+
+          if (distance > 0) {
+            currentIndex =
+              currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+          } else {
+            currentIndex =
+              currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+          }
+
+          updateSlider();
+        });
       },
     });
   };
