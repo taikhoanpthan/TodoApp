@@ -2,12 +2,12 @@ import { FaClipboard } from "react-icons/fa";
 
 export default function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center mt-20 text-gray-400 px-4 text-center">
-      <div className="bg-white p-6 rounded-full shadow-lg mb-4">
-        <FaClipboard size={40} />
+    <div className="mx-4 mt-8 flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white/70 px-4 py-14 text-center text-slate-500 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-400">
+      <div className="mb-4 rounded-2xl bg-blue-50 p-5 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
+        <FaClipboard size={32} />
       </div>
 
-      <h2 className="text-xl font-bold">
+      <h2 className="text-xl font-bold text-slate-800 dark:text-zinc-100">
         Chưa có công việc
       </h2>
 

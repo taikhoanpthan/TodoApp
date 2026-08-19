@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   FaClipboardList,
   FaCalendarAlt,
@@ -10,6 +9,7 @@ import {
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import useNotifications from "../../hooks/useNotifications";
+import { useTheme } from "../context/ThemeContext";
 
 // IMPORT ẢNH TRỰC TIẾP ĐỂ VERCEL ĐỊNH VỊ CHÍNH XÁC KHI BUILD
 import todo1 from "../../assets/todo1.jpg";
@@ -18,27 +18,7 @@ import lich from "../../assets/lich.jpg";
 export default function Header({ totalTasks = 0 }) {
   const today = new Date();
   const { unreadCount } = useNotifications();
-
-  // Khởi tạo trạng thái Dark Mode từ localStorage
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem("theme") === "dark";
-  });
-
-  // Cập nhật class 'dark' vào thẻ html (Kích hoạt @variant dark của Tailwind v4)
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (isDarkMode) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDarkMode]);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  const { dark: isDarkMode, toggleTheme } = useTheme();
 
   // Hàm xử lý nút Tải lại trang
   const handleRefresh = () => {
@@ -239,7 +219,7 @@ const images = [lich, todo1, todo2];    let currentIndex = 0;
               : "0 0 15px rgba(96,165,250,0.6)",
           }}
           whileTap={{ scale: 0.92 }}
-          onClick={toggleDarkMode}
+          onClick={toggleTheme}
           className="w-11 h-11 rounded-xl bg-white/15 dark:bg-zinc-950/50 dark:border dark:border-purple-500/50 backdrop-blur-md flex items-center justify-center shadow-lg text-yellow-300 dark:text-fuchsia-400 transition-all duration-300"
           title={
             isDarkMode

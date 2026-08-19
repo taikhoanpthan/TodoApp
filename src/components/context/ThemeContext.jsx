@@ -1,6 +1,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -10,14 +11,22 @@ const ThemeContext =
 export function ThemeProvider({
   children,
 }) {
-  const [dark, setDark] =
-    useState(false);
+  const [dark, setDark] = useState(
+    () => localStorage.getItem("theme") === "dark"
+  );
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+    document.documentElement.style.colorScheme = dark ? "dark" : "light";
+    localStorage.setItem("theme", dark ? "dark" : "light");
+  }, [dark]);
 
   return (
     <ThemeContext.Provider
       value={{
         dark,
         setDark,
+        toggleTheme: () => setDark((current) => !current),
       }}
     >
       {children}

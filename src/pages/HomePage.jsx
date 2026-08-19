@@ -11,6 +11,7 @@ import Intro from "../components/common/Intro";
 import EmptyState from "../components/common/EmptyState";
 
 import useTasks from "../hooks/useTasks";
+import { useTheme } from "../components/context/ThemeContext";
 
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
@@ -23,6 +24,7 @@ import {
 
 export default function HomePage() {
   const { tasks, setTasks, loading } = useTasks();
+  const { dark } = useTheme();
   const [filter, setFilter] = useState("pending");
   const [showIntro, setShowIntro] = useState(true);
   const [showAll, setShowAll] = useState(false);
@@ -155,8 +157,18 @@ export default function HomePage() {
        - Light Mode: bg-gradient từ xám sang xám đậm nhạt truyền thống.
        - Dark Mode (Style MMO/Neon): Đổi thành nền tối huyền bí (zinc-950), chuyển màu mượt mà (transition-colors).
     */
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-zinc-900 dark:to-black pb-24 transition-colors duration-500">
-      <Toaster position="top-center" reverseOrder={false} />
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 pb-24 transition-colors duration-500 dark:from-zinc-950 dark:via-zinc-950 dark:to-slate-900">
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{
+          style: {
+            background: dark ? "#18181b" : "#ffffff",
+            color: dark ? "#f4f4f5" : "#172033",
+            border: dark ? "1px solid #3f3f46" : "1px solid #e2e8f0",
+          },
+        }}
+      />
 
       <Header totalTasks={tasks.length} />
 
@@ -198,7 +210,7 @@ export default function HomePage() {
               */
               <button
                 onClick={() => setShowAll(!showAll)}
-                className="w-full mt-4 py-4 rounded-2xl bg-white text-gray-700 font-semibold border border-gray-200 hover:bg-gray-50 dark:bg-zinc-900 dark:border-purple-500/50 dark:text-purple-400 dark:hover:bg-purple-950/20 dark:hover:border-purple-400 dark:[box-shadow:0_4px_20px_rgba(168,85,247,0.15)] transition-all duration-300"
+                className="w-full mt-4 py-4 rounded-2xl bg-white text-slate-700 font-semibold border border-slate-200 hover:bg-slate-50 dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800 transition-all duration-300"
               >
                 {showAll
                   ? "Thu gọn bảng"
